@@ -1,14 +1,14 @@
-#### Gerenciamento de Dados Acadêmicos (SQL & Modelagem)
+# Gerenciamento de Dados Acadêmicos (SQL & Modelagem)
 
 Este repositório contém o projeto de implementação de um Banco de Dados Relacional para o gerenciamento de uma faculdade, e foi idealizado por Fabio da Bóson Treinamentos (curso completo de Modelagem de Dados disponível em: https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD). O projeto percorre desde o levantamento de requisitos e regras de negócio até a implementação do modelo físico e população de dados.
 
-### Cenário do Projeto
+## Cenário do Projeto
 
 O objetivo é centralizar o controle de Alunos, Professores, Cursos, Disciplinas, Turmas e Histórico Escolar, garantindo a integridade dos dados e permitindo consultas complexas para análise de desempenho acadêmico.
 
 Todas as regras de negócio estão contidas neste arquivo, acesse: https://docs.google.com/document/d/1eTyH5AyYKHkiXgnwDiTT2sGKIWiDjeGp/edit?usp=sharing&ouid=106429783053417088364&rtpof=true&sd=true
 
-### Tecnologias e Ferramentas
+## Tecnologias e Ferramentas
 
 Modelagem Lógica: brModelo
 
@@ -19,10 +19,10 @@ Interface: MySQL Workbench
 Linguagem: SQL (DDL para estrutura e DML para manipulação)
 
 
-### Etapas de Desenvolvimento
+## Etapas de Desenvolvimento
 
 
-# 1. Modelo Conceitual e Lógico:
+### 1. Modelo Conceitual e Lógico:
    
 O design seguiu as regras de normalização para evitar redundâncias, garantindo que relacionamentos N:N (Muitos para Muitos) fossem resolvidos através de tabelas associativas (como PROF_DISCIPLINA).
 
@@ -31,7 +31,7 @@ Veja o modelo conceitual (Sem aplicação das Formas Normais) em: https://drive.
 Veja o modelo lógico (Após a aplicação das Formas Normais) em: https://drive.google.com/file/d/1gHFfNvUwpeIh7jLSANEazDIoOf4y-xOZ/view?usp=sharing
 
 
-# 2. Dicionário de Dados
+### 2. Dicionário de Dados
 
 
 No dicionário de dados é possível verificar a definição de tipos de dados. EX:
@@ -43,7 +43,7 @@ No dicionário de dados é possível verificar a definição de tipos de dados. 
 Verifique o dicionário em: https://docs.google.com/spreadsheets/d/11QZeib9sJ4lhIsjXpbQz3zKR_dthjbSY/edit?usp=sharing&ouid=106429783053417088364&rtpof=true&sd=true
 
 
-# 3. Implementação Física (SQL)
+### 3. Implementação Física (SQL)
    
 O script automatizado realiza:
 
@@ -56,7 +56,7 @@ Inserção de dados de teste (população do banco).
 Veja o arquivo em SQL: https://drive.google.com/file/d/1MGgLbk7ucNP_jAD7KVGTqa5OopMqaNcq/view?usp=sharing
 
 
-### Como Executar o Projeto
+# Como Executar o Projeto
 
 Clone este repositório.
 
@@ -67,7 +67,7 @@ Abra o MySQL Workbench e execute o arquivo script_final_faculdade.sql.
 O banco ProjetoBDFaculdade será criado e populado automaticamente.
 
 
-### Exemplo de Consulta (Analytics)
+# Exemplo de Consulta (Analytics)
 
 Para validar os dados, utilizei queries de JOIN para extrair relatórios, como este que lista alunos e seus respectivos professores, dessa maneira:
 
@@ -77,7 +77,7 @@ FROM ALUNO A
 JOIN CURSO C ON A.Cod_Curso = C.Cod_Curso
 JOIN PROFESSOR P ON P.Cod_Departamento = C.Cod_Departamento;
 
-### Autora
+# Autora
 
 Danielli Arçari - Estudante de Ciência da Computação (UNINTER)
 Foco em SQL, Python e Analytics Engineering.
