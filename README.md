@@ -1,21 +1,21 @@
-# 🎓 Gerenciamento de Dados Acadêmicos - Projeto de Banco de Dados Relacional
+#  Gerenciamento de Dados Acadêmicos - Projeto de Banco de Dados Relacional
 
 > Este projeto contempla uma modelagem completa de um banco de dados para gerenciamento de faculdade: do levantamento de requisitos à implementação física em MySQL, passando por modelo conceitual, lógico, dicionário de dados e consultas analíticas.
 
 ---
 
-## 📌 Sobre o Projeto
+## Sobre o Projeto
 
 Este projeto percorre todas as etapas do ciclo de vida de um banco de dados relacional aplicado ao domínio acadêmico. O objetivo é centralizar o controle de **Alunos, Professores, Cursos, Disciplinas, Turmas e Histórico Escolar**, garantindo integridade referencial e suporte a consultas analíticas de desempenho.
 
-O projeto foi desenvolvido como parte da formação em Ciência da Computação (UNINTER), com base na metodologia do curso de Modelagem de Dados de [Fábio Boson (Bóson Treinamentos)](https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD) — a quem são dados os devidos créditos.
+O projeto foi desenvolvido como parte da formação em Ciência da Computação (UNINTER), com base na metodologia do curso de Modelagem de Dados de [Fábio Boson (Bóson Treinamentos)](https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD),  a quem são dados os devidos créditos.
 
 ---
 
-## 🗂️ Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
-📦 ProjetoBDFaculdade
+ ProjetoBDFaculdade
  ┣ 📄 BD_ProjetoFaculdade.sql                  ← Script principal (DDL + DML + Queries)
  ┣ 📄 DicionarioDeDados_ProjetoBDFaculdade.xlsx ← Dicionário de dados completo
  ┣ 📄 RegrasDeNegocio_ProjetoBDFaculdade.docx   ← Levantamento de requisitos e regras de negócio
@@ -26,7 +26,7 @@ O projeto foi desenvolvido como parte da formação em Ciência da Computação 
 
 ---
 
-## 🏗️ Etapas de Desenvolvimento
+## Etapas de Desenvolvimento
 
 ### 1. Levantamento de Requisitos e Regras de Negócio
 
@@ -87,10 +87,10 @@ O script `BD_ProjetoFaculdade.sql` realiza, nesta ordem:
 
 1. **Criação do schema** (`ProjetoBDFaculdade`) com charset `utf8mb4`
 2. **Criação das tabelas** respeitando a hierarquia de dependências (FKs)
-3. **Constraints de integridade** — `CHECK`, `UNIQUE`, `NOT NULL`, `DEFAULT`
-4. **Trigger de exemplo** — valida o limite de 4 disciplinas por professor no momento do INSERT
-5. **Dados de teste** — população inicial do banco via DML
-6. **Consultas analíticas** — JOINs para relatórios de desempenho
+3. **Constraints de integridade** - `CHECK`, `UNIQUE`, `NOT NULL`, `DEFAULT`
+4. **Trigger de exemplo** - valida o limite de 4 disciplinas por professor no momento do INSERT
+5. **Dados de teste** - população inicial do banco via DML
+6. **Consultas analíticas** - JOINs para relatórios de desempenho
 
 > **Regras de negócio que exigem TRIGGER ou validação na camada de aplicação** (não expressáveis com `CHECK` simples):
 > - Limite de 9 disciplinas por aluno por semestre
