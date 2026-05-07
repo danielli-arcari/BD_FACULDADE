@@ -98,7 +98,7 @@ O script `BD_ProjetoFaculdade.sql` realiza, nesta ordem:
 
 ---
 
-## 🛠️ Ferramentas
+## Ferramentas
 
 | Ferramenta        | Uso                                      |
 |-------------------|------------------------------------------|
@@ -109,7 +109,7 @@ O script `BD_ProjetoFaculdade.sql` realiza, nesta ordem:
 
 ---
 
-## ▶️ Como Executar
+## Como Executar
 
 ```bash
 # 1. Certifique-se de ter o MySQL Server 8.0+ instalado
@@ -124,7 +124,7 @@ mysql -u root -p < BD_ProjetoFaculdade.sql
 
 ---
 
-## 📊 Exemplos de Consultas (Analytics)
+## Exemplos de Consultas (Analytics)
 
 **Notas e frequência por aluno:**
 ```sql
@@ -167,7 +167,7 @@ ORDER BY Media_Geral DESC;
 
 ---
 
-## 👩‍💻 Autora
+## Autora
 
 **Danielli Arçari**
 Estudante de Ciência da Computação — UNINTER
