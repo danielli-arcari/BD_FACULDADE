@@ -1,90 +1,177 @@
-# Gerenciamento de Dados Acadêmicos (SQL & Modelagem)
+# 🎓 Gerenciamento de Dados Acadêmicos - Projeto de Banco de Dados Relacional
 
+> Este projeto contempla uma modelagem completa de um banco de dados para gerenciamento de faculdade: do levantamento de requisitos à implementação física em MySQL, passando por modelo conceitual, lógico, dicionário de dados e consultas analíticas.
 
-Este repositório contém o projeto de implementação de um Banco de Dados Relacional para o gerenciamento de uma faculdade, e foi idealizado por Fabio da Bóson Treinamentos, a quem dou os devidos créditos (curso completo de Modelagem de Dados disponível em: https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD). O projeto percorre desde o levantamento de requisitos e regras de negócio até a implementação do modelo físico e população de dados.
+---
 
+## 📌 Sobre o Projeto
 
-## Cenário do Projeto
+Este projeto percorre todas as etapas do ciclo de vida de um banco de dados relacional aplicado ao domínio acadêmico. O objetivo é centralizar o controle de **Alunos, Professores, Cursos, Disciplinas, Turmas e Histórico Escolar**, garantindo integridade referencial e suporte a consultas analíticas de desempenho.
 
+O projeto foi desenvolvido como parte da formação em Ciência da Computação (UNINTER), com base na metodologia do curso de Modelagem de Dados de [Fábio Boson (Bóson Treinamentos)](https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD) — a quem são dados os devidos créditos.
 
-O objetivo é centralizar o controle de Alunos, Professores, Cursos, Disciplinas, Turmas e Histórico Escolar, garantindo a integridade dos dados e permitindo consultas complexas para análise de desempenho acadêmico.
+---
 
-Todas as regras de negócio estão contidas neste arquivo, acesse: https://docs.google.com/document/d/1eTyH5AyYKHkiXgnwDiTT2sGKIWiDjeGp/edit?usp=sharing&ouid=106429783053417088364&rtpof=true&sd=true
+## 🗂️ Estrutura do Repositório
 
+```
+📦 ProjetoBDFaculdade
+ ┣ 📄 BD_ProjetoFaculdade.sql                  ← Script principal (DDL + DML + Queries)
+ ┣ 📄 DicionarioDeDados_ProjetoBDFaculdade.xlsx ← Dicionário de dados completo
+ ┣ 📄 RegrasDeNegocio_ProjetoBDFaculdade.docx   ← Levantamento de requisitos e regras de negócio
+ ┣ 🖼️ Lógico_ProjetoBDFaculdade.png            ← Diagrama do Modelo Lógico
+ ┣ 📄 Lógico_ProjetoBDFaculdade.brM3            ← Arquivo do Modelo Lógico (brModelo)
+ ┗ 📄 ProjetoBDFaculdade.brM3                   ← Arquivo do Modelo Conceitual (brModelo)
+```
 
-## Ferramentas
+---
 
+## 🏗️ Etapas de Desenvolvimento
 
-- Modelagem Conceitual e Lógica: brModelo
+### 1. Levantamento de Requisitos e Regras de Negócio
 
-- SGBD: MySQL 8.0
+As principais regras mapeadas foram:
 
-- Interface: MySQL Workbench
+- Um aluno só pode estar matriculado em um curso por vez
+- Um aluno pode se matricular em no máximo **9 disciplinas por semestre**
+- O aluno só pode ser reprovado no máximo **3 vezes** na mesma disciplina
+- Cada disciplina comporta no máximo **30 alunos por turma**
+- Cada professor leciona no máximo **4 disciplinas** e está vinculado a um departamento
+- Professores podem ser cadastrados mesmo sem lecionar disciplinas
+- Uma disciplina pode ter **pré-requisitos** (auto-relacionamento)
+- O Histórico Escolar registra nota final, frequência e período de cada disciplina cursada
 
-- Linguagem: SQL (DDL para estrutura e DML para manipulação)
+> Documento completo: `RegrasDeNegocio_ProjetoBDFaculdade.docx`
 
+---
 
-## Etapas de Desenvolvimento
+### 2. Modelagem Conceitual e Lógica
 
+**Entidades identificadas:** `Aluno`, `Professor`, `Disciplina`, `Curso`, `Departamento`, `Turma`, `Histórico`
 
-### 1. Modelo Conceitual e Lógico:
-   
-O design seguiu as regras de normalização para evitar redundâncias, garantindo que relacionamentos N:N (Muitos para Muitos) fossem resolvidos através de tabelas associativas (como PROF_DISCIPLINA), bem como a extirpação de dependências relativas.
+**Relacionamentos N:N** resolvidos com tabelas associativas:
 
-Veja o modelo conceitual (Sem aplicação das Formas Normais) em: https://drive.google.com/file/d/1JvIwLdcf6w69jqrsz24lkjsZ8oFbbQBx/view?usp=sharing
+| Tabela Associativa | Entidades envolvidas         |
+|--------------------|------------------------------|
+| `PROF_DISCIPLINA`  | Professor ↔ Disciplina       |
+| `CURSO_DISCIPLINA` | Curso ↔ Disciplina           |
+| `ALUNO_DISCIPLINA` | Aluno ↔ Disciplina (matrícula semestral) |
+| `DISC_HIST`        | Histórico ↔ Disciplina (notas e frequência) |
+| `DISC_PREREQ`      | Disciplina ↔ Disciplina (auto-relacionamento de pré-requisito) |
 
-Veja o modelo lógico (Após a aplicação das Formas Normais) em: https://drive.google.com/file/d/1gHFfNvUwpeIh7jLSANEazDIoOf4y-xOZ/view?usp=sharing
+O modelo lógico foi normalizado até a **3ª Forma Normal (3FN)**, eliminando dependências parciais e transitivas.
 
+> Diagrama do modelo lógico: `Lógico_ProjetoBDFaculdade.png`
 
-### 2. Dicionário de Dados
+---
 
-No dicionário de dados é possível verificar a definição de tipos de dados. EX:
+### 3. Dicionário de Dados
 
-- RA (Registro Acadêmico): VARCHAR(8) como Chave Primária.
+Define o tipo, tamanho, restrições e descrição de cada atributo. Exemplos:
 
-- Notas: DECIMAL(4) para precisão de cálculos.
+| Atributo        | Tipo         | Restrição     | Descrição                          |
+|-----------------|--------------|---------------|------------------------------------|
+| `RA`            | `VARCHAR(8)` | PK, NOT NULL  | Registro Acadêmico do aluno        |
+| `CPF`           | `VARCHAR(14)`| NOT NULL, UNIQUE | Formato `000.000.000-00`        |
+| `Nota`          | `DECIMAL(4,2)`| NOT NULL, CHECK (0–10) | Nota final da disciplina  |
+| `Frequencia`    | `DECIMAL(5,2)`| NOT NULL, CHECK (0–100) | Frequência em percentual |
+| `Status_Ativo`  | `BOOLEAN`    | NOT NULL, DEFAULT TRUE | Status do professor      |
 
-Veja o completo dicionário em: https://docs.google.com/spreadsheets/d/11QZeib9sJ4lhIsjXpbQz3zKR_dthjbSY/edit?usp=sharing&ouid=106429783053417088364&rtpof=true&sd=true
+> Dicionário completo: `DicionarioDeDados_ProjetoBDFaculdade.xlsx`
 
+---
 
-### 3. Implementação Física (SQL)
-   
-O script automatizado confeccionado no MySQL realiza:
+### 4. Implementação Física (MySQL 8.0)
 
-- Criação do Schema;
+O script `BD_ProjetoFaculdade.sql` realiza, nesta ordem:
 
-- Criação de tabelas respeitando a hierarquia de dependência;
+1. **Criação do schema** (`ProjetoBDFaculdade`) com charset `utf8mb4`
+2. **Criação das tabelas** respeitando a hierarquia de dependências (FKs)
+3. **Constraints de integridade** — `CHECK`, `UNIQUE`, `NOT NULL`, `DEFAULT`
+4. **Trigger de exemplo** — valida o limite de 4 disciplinas por professor no momento do INSERT
+5. **Dados de teste** — população inicial do banco via DML
+6. **Consultas analíticas** — JOINs para relatórios de desempenho
 
-- Inserção de dados de teste (população do banco);
+> **Regras de negócio que exigem TRIGGER ou validação na camada de aplicação** (não expressáveis com `CHECK` simples):
+> - Limite de 9 disciplinas por aluno por semestre
+> - Limite de 3 reprovações por aluno em uma mesma disciplina
 
-Veja o arquivo do Projeto em SQL: https://drive.google.com/file/d/1MGgLbk7ucNP_jAD7KVGTqa5OopMqaNcq/view?usp=sharing
+---
 
+## 🛠️ Ferramentas
 
-# Como Executar o Projeto
+| Ferramenta        | Uso                                      |
+|-------------------|------------------------------------------|
+| **brModelo**      | Modelagem conceitual e lógica            |
+| **MySQL 8.0**     | SGBD                                     |
+| **MySQL Workbench** | Interface de execução e visualização   |
+| **SQL**           | DDL (estrutura), DML (dados), DQL (consultas) |
 
+---
 
-- Clone este repositório ou, se preferir, acesse os links postados neste READ ME;
+## ▶️ Como Executar
 
-- Certifique-se de ter o MySQL Server instalado;
+```bash
+# 1. Certifique-se de ter o MySQL Server 8.0+ instalado
+# 2. Clone este repositório
+git clone https://github.com/seu-usuario/ProjetoBDFaculdade.git
 
-- Abra o MySQL Workbench e execute o arquivo BD_ProjetoFaculdade.sql;
+# 3. Acesse o MySQL via terminal ou MySQL Workbench e execute:
+mysql -u root -p < BD_ProjetoFaculdade.sql
 
-- O banco ProjetoBDFaculdade será criado e populado automaticamente.
+# O banco ProjetoBDFaculdade será criado e populado automaticamente.
+```
 
+---
 
-# Exemplo de Consulta (Analytics)
+## 📊 Exemplos de Consultas (Analytics)
 
+**Notas e frequência por aluno:**
+```sql
+SELECT
+    A.RA,
+    CONCAT(A.Nome_Aluno, ' ', A.Sobrenome_Aluno) AS Aluno,
+    D.Nome_Disciplina,
+    DH.Nota,
+    DH.Frequencia
+FROM ALUNO A
+JOIN HISTORICO      H  ON A.RA               = H.RA
+JOIN DISC_HIST      DH ON H.Cod_Historico    = DH.Cod_Historico
+JOIN DISCIPLINA     D  ON DH.Cod_Disciplina  = D.Cod_Disciplina
+ORDER BY A.RA, D.Nome_Disciplina;
+```
 
-Para validar os dados, observa-se no projeto o uso de queries de JOIN para extrair relatórios, tal como este exemplo ( o exemplo abaixo objetiva listar alunos e seus respectivos professores):
+**Professores e disciplinas que lecionam:**
+```sql
+SELECT
+    CONCAT(P.Nome_Professor, ' ', P.Sobrenome_Professor) AS Professor,
+    D.Nome_Disciplina
+FROM PROFESSOR P
+JOIN PROF_DISCIPLINA PD ON P.Cod_Professor   = PD.Cod_Professor
+JOIN DISCIPLINA      D  ON PD.Cod_Disciplina = D.Cod_Disciplina
+ORDER BY Professor;
+```
 
-      SQL
-      SELECT A.Nome_Aluno, C.Nome_Curso, P.Nome_Professor
-      FROM ALUNO A
-      JOIN CURSO C ON A.Cod_Curso = C.Cod_Curso
-      JOIN PROFESSOR P ON P.Cod_Departamento = C.Cod_Departamento;
+**Média geral por aluno:**
+```sql
+SELECT
+    CONCAT(A.Nome_Aluno, ' ', A.Sobrenome_Aluno) AS Aluno,
+    ROUND(AVG(DH.Nota), 2)       AS Media_Geral,
+    ROUND(AVG(DH.Frequencia), 2) AS Frequencia_Media
+FROM ALUNO A
+JOIN HISTORICO  H  ON A.RA            = H.RA
+JOIN DISC_HIST  DH ON H.Cod_Historico = DH.Cod_Historico
+GROUP BY A.RA, Aluno
+ORDER BY Media_Geral DESC;
+```
 
+---
 
-# Autora
+## 👩‍💻 Autora
 
+**Danielli Arçari**
+Estudante de Ciência da Computação — UNINTER
+Foco em SQL, Python e Analytics Engineering
 
-Danielli Arçari - Estudante de Ciência da Computação (UNINTER) - Foco em SQL, Python e Analytics Engineering.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/seu-perfil)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/seu-usuario)
