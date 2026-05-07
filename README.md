@@ -1,7 +1,7 @@
 # Gerenciamento de Dados Acadêmicos (SQL & Modelagem)
 
 
-Este repositório contém o projeto de implementação de um Banco de Dados Relacional para o gerenciamento de uma faculdade, e foi idealizado por Fabio da Bóson Treinamentos (curso completo de Modelagem de Dados disponível em: https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD). O projeto percorre desde o levantamento de requisitos e regras de negócio até a implementação do modelo físico e população de dados.
+Este repositório contém o projeto de implementação de um Banco de Dados Relacional para o gerenciamento de uma faculdade, e foi idealizado por Fabio da Bóson Treinamentos, a quem dou os devidos créditos (curso completo de Modelagem de Dados disponível em: https://www.youtube.com/watch?v=Q_KTYFgvu1s&list=PLucm8g_ezqNoNHU8tjVeHmRGBFnjDIlxD). O projeto percorre desde o levantamento de requisitos e regras de negócio até a implementação do modelo físico e população de dados.
 
 
 ## Cenário do Projeto
@@ -29,7 +29,7 @@ Todas as regras de negócio estão contidas neste arquivo, acesse: https://docs.
 
 ### 1. Modelo Conceitual e Lógico:
    
-O design seguiu as regras de normalização para evitar redundâncias, garantindo que relacionamentos N:N (Muitos para Muitos) fossem resolvidos através de tabelas associativas (como PROF_DISCIPLINA).
+O design seguiu as regras de normalização para evitar redundâncias, garantindo que relacionamentos N:N (Muitos para Muitos) fossem resolvidos através de tabelas associativas (como PROF_DISCIPLINA), bem como a extirpação de dependências relativas.
 
 Veja o modelo conceitual (Sem aplicação das Formas Normais) em: https://drive.google.com/file/d/1JvIwLdcf6w69jqrsz24lkjsZ8oFbbQBx/view?usp=sharing
 
@@ -49,7 +49,7 @@ Veja o completo dicionário em: https://docs.google.com/spreadsheets/d/11QZeib9s
 
 ### 3. Implementação Física (SQL)
    
-O script automatizado realiza:
+O script automatizado confeccionado no MySQL realiza:
 
 - Criação do Schema;
 
@@ -63,11 +63,11 @@ Veja o arquivo do Projeto em SQL: https://drive.google.com/file/d/1MGgLbk7ucNP_j
 # Como Executar o Projeto
 
 
-- Clone este repositório.
+- Clone este repositório ou, se preferir, acesse os links postados neste READ ME;
 
-- Certifique-se de ter o MySQL Server instalado.
+- Certifique-se de ter o MySQL Server instalado;
 
-- Abra o MySQL Workbench e execute o arquivo script_final_faculdade.sql.
+- Abra o MySQL Workbench e execute o arquivo BD_ProjetoFaculdade.sql;
 
 - O banco ProjetoBDFaculdade será criado e populado automaticamente.
 
@@ -75,17 +75,16 @@ Veja o arquivo do Projeto em SQL: https://drive.google.com/file/d/1MGgLbk7ucNP_j
 # Exemplo de Consulta (Analytics)
 
 
-Para validar os dados, observa-se o uso de queries de JOIN para extrair relatórios, como o que está logo abaixo, que lista alunos e seus respectivos professores:
+Para validar os dados, observa-se no projeto o uso de queries de JOIN para extrair relatórios, tal como este exemplo ( o exemplo abaixo objetiva listar alunos e seus respectivos professores):
 
-   SQL
-   SELECT A.Nome_Aluno, C.Nome_Curso, P.Nome_Professor
-   FROM ALUNO A
-   JOIN CURSO C ON A.Cod_Curso = C.Cod_Curso
-   JOIN PROFESSOR P ON P.Cod_Departamento = C.Cod_Departamento;
+      SQL
+      SELECT A.Nome_Aluno, C.Nome_Curso, P.Nome_Professor
+      FROM ALUNO A
+      JOIN CURSO C ON A.Cod_Curso = C.Cod_Curso
+      JOIN PROFESSOR P ON P.Cod_Departamento = C.Cod_Departamento;
 
 
 # Autora
 
 
-Danielli Arçari - Estudante de Ciência da Computação (UNINTER)
-Foco em SQL, Python e Analytics Engineering.
+Danielli Arçari - Estudante de Ciência da Computação (UNINTER) - Foco em SQL, Python e Analytics Engineering.
