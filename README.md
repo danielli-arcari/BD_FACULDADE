@@ -12,10 +12,10 @@ O objetivo é centralizar o controle de Alunos, Professores, Cursos, Disciplinas
 Todas as regras de negócio estão contidas neste arquivo, acesse: https://docs.google.com/document/d/1eTyH5AyYKHkiXgnwDiTT2sGKIWiDjeGp/edit?usp=sharing&ouid=106429783053417088364&rtpof=true&sd=true
 
 
-## Tecnologias e Ferramentas
+## Ferramentas
 
 
-- Modelagem Lógica: brModelo
+- Modelagem Conceitual e Lógica: brModelo
 
 - SGBD: MySQL 8.0
 
