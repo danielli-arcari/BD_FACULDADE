@@ -194,7 +194,8 @@ Ou, se preferir, abra o arquivo no MySQL Workbench e pressione `Ctrl + Enter` pa
 
 ## Autora
 
-**Danielli Arçari**
+**Danielli Meilene Coutinho Arçari** 
+
 Estudante de Ciência da Computação na UNINTER, com interesse em SQL, Python e Analytics Engineering.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/seu-perfil)
